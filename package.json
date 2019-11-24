@@ -13,7 +13,8 @@
     "shards-react": "^1.0.3",
     "typescript": "^3.7.2",
     "react-router": "latest",
-    "prop-types": "latest"
+    "prop-types": "latest",
+    "rxjs": "latest"
   },
   "scripts": {
     "start": "react-scripts start",

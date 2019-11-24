@@ -1,5 +1,7 @@
 import React from 'react';
 import LinkButton from "./utils/LinkButton";
+import Api from './utils/Api';
+// import 'rxjs';
 import "bootstrap/dist/css/bootstrap.min.css";
 import "shards-ui/dist/css/shards.min.css";
 import { Card } from "shards-react";
@@ -16,18 +18,46 @@ export default class SignUp extends React.Component {
         this.state = {state: ''};
         this.state = {zip: ''};
         this.state = {password: ''};
+        this.state = {message: ''};
 
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     handleSubmit(event) {
-        //Here's where we call the API to submit the customer to the database
-        alert('First name: ' + this.state.first_name + '\nLast name: ' + this.state.last_name +
-            '\nEmail: ' + this.state.email + '\nStreet number: ' + this.state.street_number +
-            '\nStreet name: ' + this.state.street_name + '\nCity: ' + this.state.city +
-            '\nState: ' + this.state.state + '\nZip: ' + this.state.zip +
-            '\nPassword: ' + this.state.password);
+        // Get the data from the form to send to the database
+        const customer = {
+            first_name: this.state.first_name,
+            last_name: this.state.last_name,
+            email: this.state.email.toLowerCase(),
+            address: {
+                street_number: this.state.street_number,
+                street_name: this.state.street_name,
+                city: this.state.city,
+                state: this.state.state,
+                zip: this.state.zip
+            },
+            password: this.state.password
+        };
+        // Check to see if that email is registered yet
+        Api.get("/customers").then(data => {
+            if (JSON.stringify(data.data).includes(this.state.email.toLowerCase())){
+                this.setState({message: "This email has already been registered, please sign in."});
+            } else {
+                // send the data to the database
+                Api.post("/customers", customer).then(() => {
+                    this.setState({message: "Profile created successfully! You may now sign in."});
+                }).catch(err => {
+                    this.setState({message: "It looks like there was an error creating your profile, please try again later."});
+                    // rxjs.throwError(err);
+                    console.log(err);
+                });
+            }
+        }).catch(err => {
+            this.setState({message: "It looks like there was an error fetching data, please try again later."});
+            // rxjs.throwError(err);
+            console.log(err);
+        });
         event.preventDefault();
     }
 
@@ -91,6 +121,7 @@ export default class SignUp extends React.Component {
                             <LinkButton className="btn btn-secondary ml-1" to={'/signin'}>Sign In</LinkButton>
                         </div>
                     </form>
+                    {this.state.message}
                 </div>
             </Card>
         );

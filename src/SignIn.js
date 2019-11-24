@@ -1,6 +1,7 @@
 import React from 'react';
 import LinkButton from "./utils/LinkButton";
 import { Card } from "shards-react";
+import Api from "./utils/Api";
 
 export default class SignIn extends React.Component {
     constructor(props){
@@ -14,7 +15,20 @@ export default class SignIn extends React.Component {
 
     handleSubmit(event) {
         //Here's where we call the API to get the customer info and reroute to the dashboard
-        alert('You logged in with these credentials: ' + this.state.email + ", " + this.state.password);
+        const data = {
+            email: this.state.email,
+            password: this.state.password
+        };
+
+        Api.get("/customers").then(res => {
+            if (JSON.stringify(res.data).includes(this.state.email.toLowerCase())){
+                // They're in the database, so check to see if that password is right and log in
+            } else {
+                // They're not in the database yet.
+            }
+        }).catch(err => {
+            // There was an error getting all customers
+        });
         event.preventDefault();
     }
 
