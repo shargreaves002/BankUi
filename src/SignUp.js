@@ -40,23 +40,19 @@ export default class SignUp extends React.Component {
             password: this.state.password
         };
         // Check to see if that email is registered yet
-        Api.get("/customers").then(data => {
-            if (JSON.stringify(data.data).includes(this.state.email.toLowerCase())){
-                this.setState({message: "This email has already been registered, please sign in."});
-            } else {
+        Api.get("/customers/email/" + customer.email).then((res) => {
+            if (res.data.data[0] == null) {
                 // send the data to the database
                 Api.post("/customers", customer).then(() => {
                     this.setState({message: "Profile created successfully! You may now sign in."});
                 }).catch(err => {
                     this.setState({message: "It looks like there was an error creating your profile, please try again later."});
-                    // rxjs.throwError(err);
-                    console.log(err);
                 });
+            } else {
+                this.setState({message: "This email has already been registered, please sign in."});
             }
-        }).catch(err => {
+        }).catch(() => {
             this.setState({message: "It looks like there was an error fetching data, please try again later."});
-            // rxjs.throwError(err);
-            console.log(err);
         });
         event.preventDefault();
     }
@@ -121,6 +117,8 @@ export default class SignUp extends React.Component {
                             <LinkButton className="btn btn-secondary ml-1" to={'/signin'}>Sign In</LinkButton>
                         </div>
                     </form>
+                </div>
+                <div className="card-footer">
                     {this.state.message}
                 </div>
             </Card>

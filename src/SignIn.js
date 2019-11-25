@@ -2,12 +2,14 @@ import React from 'react';
 import LinkButton from "./utils/LinkButton";
 import { Card } from "shards-react";
 import Api from "./utils/Api";
+import history from "./utils/history";
 
 export default class SignIn extends React.Component {
     constructor(props){
         super(props);
         this.state = {email: ''};
         this.state = {password: ''};
+        this.state = {message: ''};
 
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -16,18 +18,27 @@ export default class SignIn extends React.Component {
     handleSubmit(event) {
         //Here's where we call the API to get the customer info and reroute to the dashboard
         const data = {
-            email: this.state.email,
+            email: this.state.email.toLowerCase(),
             password: this.state.password
         };
 
-        Api.get("/customers").then(res => {
-            if (JSON.stringify(res.data).includes(this.state.email.toLowerCase())){
-                // They're in the database, so check to see if that password is right and log in
+        Api.get("/customers/email/" + data.email).then(res => {
+            if (res.data.data[0] == null) {
+                // They're not in the database yet
+                this.setState({message: 'Looks like your email has not been registered yet, please sign up!'});
             } else {
-                // They're not in the database yet.
+                // They're in the database, so check to see if that password is right and log in
+                if (res.data.data[0].password === data.password) {
+                    history.push("/customer/" + res.data.data[0].customerId);
+                    window.location.reload();
+                    this.setState({message: 'You have signed in successfully.'});
+                } else {
+                    this.setState({message: 'Your password was incorrect, please try again.'});
+                }
             }
-        }).catch(err => {
-            // There was an error getting all customers
+        }).catch((err) => {
+            this.setState({message: 'It looks like there was an error fetching data, please try again later.'});
+            console.log(err);
         });
         event.preventDefault();
     }
@@ -59,6 +70,9 @@ export default class SignIn extends React.Component {
                             <LinkButton className="btn btn-secondary ml-1" to={'/signup'}>Create an account</LinkButton>
                         </div>
                     </form>
+                </div>
+                <div className="card-footer">
+                    {this.state.message}
                 </div>
             </Card>
         );
