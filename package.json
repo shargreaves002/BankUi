@@ -14,7 +14,8 @@
     "typescript": "^3.7.2",
     "react-router": "latest",
     "prop-types": "latest",
-    "rxjs": "latest"
+    "rxjs": "latest",
+    "history": "latest"
   },
   "scripts": {
     "start": "react-scripts start",

@@ -69,26 +69,29 @@ export default class Customer extends React.Component {
                         <div className={"card-body"}>
                             <table className={"table table-hover"}>
                                 <thead>
-                                <tr>
-                                    <th>Email</th>
-                                    <th>Street Number</th>
-                                    <th>Street Name</th>
-                                    <th>City</th>
-                                    <th>State</th>
-                                    <th>Zip Code</th>
-                                </tr>
+                                    <tr>
+                                        <th>Email</th>
+                                        <th>Street Number</th>
+                                        <th>Street Name</th>
+                                        <th>City</th>
+                                        <th>State</th>
+                                        <th>Zip Code</th>
+                                    </tr>
                                 </thead>
                                 <tbody>
-                                <tr>
-                                    <td>{customer.email}</td>
-                                    <td>{customer.address.street_number}</td>
-                                    <td>{customer.address.street_name}</td>
-                                    <td>{customer.address.city}</td>
-                                    <td>{customer.address.state}</td>
-                                    <td>{customer.address.zip}</td>
-                                </tr>
+                                    <tr>
+                                        <td>{customer.email}</td>
+                                        <td>{customer.address.street_number}</td>
+                                        <td>{customer.address.street_name}</td>
+                                        <td>{customer.address.city}</td>
+                                        <td>{customer.address.state}</td>
+                                        <td>{customer.address.zip}</td>
+                                    </tr>
                                 </tbody>
                             </table>
+                        </div>
+                        <div className={"card-footer"}>
+                            <LinkButton to={'/'} className={"btn btn-secondary"}> Sign Out </LinkButton>
                         </div>
                     </Card>
                     <Card className={"mt-4 mx-auto text-center"}>
@@ -96,18 +99,22 @@ export default class Customer extends React.Component {
                         <div className={"card-body"}>
                             <table className={"table table-hover"}>
                                 <thead>
-                                <tr>
-                                    <th>Nickname</th>
-                                    <th>Type</th>
-                                    <th>Rewards</th>
-                                    <th>Balance</th>
-                                </tr>
+                                    <tr>
+                                        <th>Nickname</th>
+                                        <th>Type</th>
+                                        <th>Rewards</th>
+                                        <th>Balance</th>
+                                    </tr>
                                 </thead>
                                 <tbody>
                                 {accounts.map((account) => {
                                     return (
                                         <tr key={account.id}>
-                                            <td key={`${account.id}-${account.nickname}`}>{account.nickname}</td>
+                                            <td key={`${account.id}-${account.nickname}`}>
+                                                <a href={`/account/${account.id}`}>
+                                                    {account.nickname}
+                                                </a>
+                                            </td>
                                             <td key={`${account.id}-${account.type}`}>{account.type}</td>
                                             <td key={`${account.id}-${account.rewards}`}>{account.rewards}</td>
                                             <td key={`${account.id}-${account.balance}`}>{account.balance}</td>
@@ -118,8 +125,7 @@ export default class Customer extends React.Component {
                             </table>
                         </div>
                         <div className={"card-footer"}>
-                            <LinkButton to={`/customer/${this.props.match.params.id}/create-account`}
-                                        className={"btn btn-secondary"}> Create a new account! </LinkButton>
+                            <LinkButton to={`/customer/${this.props.match.params.id}/create-account`} className={"btn btn-secondary"}> Create a new account! </LinkButton>
                         </div>
                     </Card>
                 </div>
