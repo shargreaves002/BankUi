@@ -9,6 +9,7 @@ export default class Customer extends React.Component {
         super(props);
         this.state = {
             customer: {
+                customerId: '',
                 first_name:'',
                 last_name:'',
                 email: '',
@@ -91,7 +92,8 @@ export default class Customer extends React.Component {
                             </table>
                         </div>
                         <div className={"card-footer"}>
-                            <LinkButton to={'/'} className={"btn btn-secondary"}> Sign Out </LinkButton>
+                            <LinkButton to={'/'} className={"btn btn-secondary mr-1"}> Sign Out </LinkButton>
+                            <LinkButton to={`/customer/${customer.customerId}/edit`} className={"btn btn-secondary ml-1"}> Edit Information </LinkButton>
                         </div>
                     </Card>
                     <Card className={"mt-4 mx-auto text-center"}>
