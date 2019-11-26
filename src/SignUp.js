@@ -1,7 +1,6 @@
 import React from 'react';
 import LinkButton from "./utils/LinkButton";
 import Api from './utils/Api';
-// import 'rxjs';
 import "bootstrap/dist/css/bootstrap.min.css";
 import "shards-ui/dist/css/shards.min.css";
 import { Card } from "shards-react";
@@ -45,7 +44,7 @@ export default class SignUp extends React.Component {
                 // send the data to the database
                 Api.post("/customers", customer).then(() => {
                     this.setState({message: "Profile created successfully! You may now sign in."});
-                }).catch(err => {
+                }).catch(() => {
                     this.setState({message: "It looks like there was an error creating your profile, please try again later."});
                 });
             } else {

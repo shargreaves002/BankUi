@@ -2,7 +2,7 @@ import React from 'react';
 import LinkButton from "./utils/LinkButton";
 import { Card } from "shards-react";
 import Api from "./utils/Api";
-import history from "./utils/history";
+// import history from "./utils/history";
 
 export default class SignIn extends React.Component {
     constructor(props){
@@ -23,13 +23,13 @@ export default class SignIn extends React.Component {
         };
 
         Api.get("/customers/email/" + data.email).then(res => {
-            if (res.data.data[0] == null) {
+            if (res.data.data === undefined) {
                 // They're not in the database yet
                 this.setState({message: 'Looks like your email has not been registered yet, please sign up!'});
             } else {
                 // They're in the database, so check to see if that password is right and log in
                 if (res.data.data[0].password === data.password) {
-                    history.push("/customer/" + res.data.data[0].customerId);
+                    window.history.push("/customer/" + res.data.data[0].customerId);
                     window.location.reload();
                     this.setState({message: 'You have signed in successfully.'});
                 } else {
