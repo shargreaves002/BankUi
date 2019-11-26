@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import SignIn from "./SignIn";
 import SignUp from "./SignUp";
+import Account from "./Account";
 import Customer from "./Customer";
 import './App.css';
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -17,6 +18,7 @@ export default function App() {
             <Route path="/signup">
               <SignUp />
             </Route>
+            <Route path="/account:id" component={Account} />
             <Route path="/accounts">
               <Customer />
             </Route>
