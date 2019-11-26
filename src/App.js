@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import SignIn from "./SignIn";
 import SignUp from "./SignUp";
+import Account from "./Account";
 import Customer from "./Customer";
 import CustomerUpdate from "./CustomerUpdate";
 import Bill from "./Bill";
@@ -23,6 +24,10 @@ export default function App() {
             <Route exact path="/customer/:id" component={Customer} />
             <Route exact path="/signup">
               <SignUp />
+            </Route>
+            <Route path="/account/:id" component={Account} />
+            <Route path="/accounts">
+              <Customer />
             </Route>
             <Route path="/">
               <SignIn />
