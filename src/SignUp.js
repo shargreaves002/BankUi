@@ -70,45 +70,45 @@ export default class SignUp extends React.Component {
                         <div className="form-row">
                             <div className="form-group col">
                                 <label>First Name</label>
-                                <input type="text" name="first_name" className="form-control" value={this.state.first_name} onChange={this.handleChange}/>
+                                <input type="text" name="first_name" className="form-control" value={this.state.first_name || ''} onChange={this.handleChange}/>
                             </div>
                             <div className="form-group col">
                                 <label>Last Name</label>
-                                <input type="text" name="last_name" className="form-control" value={this.state.last_name} onChange={this.handleChange}/>
+                                <input type="text" name="last_name" className="form-control" value={this.state.last_name || ''} onChange={this.handleChange}/>
                             </div>
                         </div>
                         <div className="form-group">
                             <label>Email</label>
-                            <input type="text" name="email" className="form-control" value={this.state.email} onChange={this.handleChange}/>
+                            <input type="text" name="email" className="form-control" value={this.state.email || ''} onChange={this.handleChange}/>
                         </div>
                         <div className="form-row">
                             <div className="form-group col">
                                 <label>Street Number</label>
-                                <input type="text" name="street_number" className="form-control" value={this.state.street_number} onChange={this.handleChange}/>
+                                <input type="text" name="street_number" className="form-control" value={this.state.street_number || ''} onChange={this.handleChange}/>
                             </div>
                             <div className="form-group col">
                                 <label>Street</label>
-                                <input type="text" name="street_name" className="form-control" value={this.state.street_name} onChange={this.handleChange}/>
+                                <input type="text" name="street_name" className="form-control" value={this.state.street_name || ''} onChange={this.handleChange}/>
                             </div>
                         </div>
                         <div className="form-row">
                             <div className="form-group col">
                                 <label>City</label>
-                                <input type="text" name="city" className="form-control" value={this.state.city} onChange={this.handleChange}/>
+                                <input type="text" name="city" className="form-control" value={this.state.city || ''} onChange={this.handleChange}/>
                             </div>
                             <div className="form-group col">
                                 <label>State</label>
-                                <input type="text" name="state" className="form-control" value={this.state.state} onChange={this.handleChange}/>
+                                <input type="text" name="state" className="form-control" value={this.state.state || ''} onChange={this.handleChange}/>
                             </div>
                             <div className="form-group col">
                                 <label>Zip Code</label>
-                                <input type="text" name="zip" className="form-control" value={this.state.zip} onChange={this.handleChange}/>
+                                <input type="text" name="zip" className="form-control" value={this.state.zip || ''} onChange={this.handleChange}/>
                             </div>
                         </div>
                         <div className="form-row">
                             <div className="form-group col">
                                 <label>Password</label>
-                                <input type="password" name="password" className="form-control" value={this.state.password} onChange={this.handleChange}/>
+                                <input type="password" name="password" className="form-control" value={this.state.password || ''} onChange={this.handleChange}/>
                             </div>
                         </div>
                         <div className="text-center">

@@ -2,6 +2,7 @@ import React from 'react';
 import LinkButton from "./utils/LinkButton";
 import { Card } from "shards-react";
 import Api from "./utils/Api";
+import history from "./utils/history";
 
 export default class SignIn extends React.Component {
     constructor(props){
@@ -28,7 +29,7 @@ export default class SignIn extends React.Component {
             } else {
                 // They're in the database, so check to see if that password is right and log in
                 if (res.data.data[0].password === data.password) {
-                    window.history.push("/customer/" + res.data.data[0].customerId);
+                    history.push("/customer/" + res.data.data[0].customerId);
                     window.location.reload();
                     this.setState({message: 'You have signed in successfully.'});
                 } else {
@@ -55,12 +56,12 @@ export default class SignIn extends React.Component {
                         <div className="form-group form-row">
                             <div className="form-group col">
                                 <label>Email
-                                <input type="text" name="email" className="form-control" value={this.state.email} onChange={this.handleChange} />
+                                <input type="text" name="email" className="form-control" value={this.state.email || ''} onChange={this.handleChange} />
                                 </label>
                             </div>
                             <div className=" form-group col">
                                 <label>Password
-                                <input type="password" name="password" className="form-control" value={this.state.password} onChange={this.handleChange} />
+                                <input type="password" name="password" className="form-control" value={this.state.password || ''} onChange={this.handleChange} />
                                 </label>
                             </div>
                         </div>
