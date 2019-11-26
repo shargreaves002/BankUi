@@ -40,7 +40,7 @@ export default class SignUp extends React.Component {
         };
         // Check to see if that email is registered yet
         Api.get("/customers/email/" + customer.email).then((res) => {
-            if (res.data.data[0] == null) {
+            if (res.data.data === undefined) {
                 // send the data to the database
                 Api.post("/customers", customer).then(() => {
                     this.setState({message: "Profile created successfully! You may now sign in."});
@@ -50,8 +50,9 @@ export default class SignUp extends React.Component {
             } else {
                 this.setState({message: "This email has already been registered, please sign in."});
             }
-        }).catch(() => {
+        }).catch((err) => {
             this.setState({message: "It looks like there was an error fetching data, please try again later."});
+            console.log(err);
         });
         event.preventDefault();
     }
