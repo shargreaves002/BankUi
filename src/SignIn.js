@@ -2,7 +2,6 @@ import React from 'react';
 import LinkButton from "./utils/LinkButton";
 import { Card } from "shards-react";
 import Api from "./utils/Api";
-// import history from "./utils/history";
 
 export default class SignIn extends React.Component {
     constructor(props){

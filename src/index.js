@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-// import history from './utils/history';
 
 ReactDOM.render(<App history={window.history}/>, document.getElementById('root'));
 
