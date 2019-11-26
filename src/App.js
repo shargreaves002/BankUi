@@ -15,7 +15,8 @@ export default function App() {
           {/* A <Switch> looks through its children <Route>s and
             renders the first one that matches the current URL. */}
           <Switch>
-            <Route path="/signup">
+            <Route exact path="/customer/:id" component={Customer} />
+            <Route exact path="/signup">
               <SignUp />
             </Route>
             <Route path="/account:id" component={Account} />
