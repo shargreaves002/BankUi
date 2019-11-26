@@ -19,7 +19,7 @@ export default function App() {
             <Route exact path="/signup">
               <SignUp />
             </Route>
-            <Route path="/account:id" component={Account} />
+            <Route path="/account/:id" component={Account} />
             <Route path="/accounts">
               <Customer />
             </Route>
