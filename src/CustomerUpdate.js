@@ -26,35 +26,34 @@ export default class SignUp extends React.Component {
 
     handleSubmit(event) {
         // Get the data from the form to send to the database
-        let customer = {};
-        if (this.state.email !== null) {
-            customer = {
-                        first_name: this.state.first_name,
-                        last_name: this.state.last_name,
-                        email: this.state.email.toLowerCase(),
-                        address: {
-                            street_number: this.state.street_number,
-                            street_name: this.state.street_name,
-                            city: this.state.city,
-                            state: this.state.state,
-                            zip: this.state.zip
-                        },
-                        password: this.state.password
-                    };
-        } else {
-            customer = {
-                        first_name: this.state.first_name,
-                        last_name: this.state.last_name,
-                        email: null,
-                        address: {
-                            street_number: this.state.street_number,
-                            street_name: this.state.street_name,
-                            city: this.state.city,
-                            state: this.state.state,
-                            zip: this.state.zip
-                        },
-                        password: this.state.password
-                    };
+        let customer;
+        try {
+        customer = {
+                    first_name: this.state.first_name,
+                    last_name: this.state.last_name,
+                    email: this.state.email.toLowerCase(),
+                    address: {
+                        street_number: this.state.street_number,
+                        street_name: this.state.street_name,
+                        city: this.state.city,
+                        state: this.state.state,
+                        zip: this.state.zip
+                    },
+                    password: this.state.password
+                };
+        } catch (e) {
+        customer = {
+                    first_name: this.state.first_name,
+                    last_name: this.state.last_name,
+                    address: {
+                        street_number: this.state.street_number,
+                        street_name: this.state.street_name,
+                        city: this.state.city,
+                        state: this.state.state,
+                        zip: this.state.zip
+                    },
+                    password: this.state.password
+                };
         }
 
         // Check to see if that email is registered yet
