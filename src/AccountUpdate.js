@@ -6,12 +6,10 @@ import Api from "./utils/Api";
 export default class AccountUpdate extends React.Component {
     constructor(props){
         super(props);
-        this.state = {
-            type: '',
-            nickname: '',
-            balance: '',
-            message: ''
-        };
+        this.state = {type: ''};
+        this.state = {nickname: ''};
+        this.state = {message: ''};
+        this.state = {customerId: ''};
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
@@ -21,23 +19,25 @@ export default class AccountUpdate extends React.Component {
     }
 
     handleSubmit(event) {
-        if (this.state.type === null || this.state.type === undefined || this.state.type === '') {
-            this.setState({type: "Checking"});
-        }
-
         const account = {
             type: this.state.type,
             nickname: this.state.nickname,
-            balance: this.state.balance,
-            rewards: 0,
         };
-        Api.put(`/customers/${this.props.match.params.id}/accounts`, account).then( () => {
+        Api.put(`/accounts/${this.props.match.params.id}`, account).then( () => {
             this.setState({message: "Account Updated successfully!"});
         }).catch( (err) => {
             this.setState({message: "Whoops! It looks like there was an error. Please try again later."});
             console.log(err);
         });
         event.preventDefault();
+    }
+
+    componentDidMount() {
+        Api.get(`/accounts/${this.props.match.params.id}`).then(res => {
+            this.setState({customerId: res.data.data[0].customerId});
+        }).catch(err => {
+            console.log(err);
+        });
     }
 
     render () {
@@ -63,16 +63,9 @@ export default class AccountUpdate extends React.Component {
                                 </label>
                             </div>
                         </div>
-                        <div className={"form-group form-row"}>
-                            <div className=" form-group col">
-                                <label>Updated Balance
-                                    <input type="text" name="balance" className="form-control" value={this.state.balance || ''} onChange={this.handleChange} />
-                                </label>
-                            </div>
-                        </div>
                         <div className=" text-center">
                             <button className=" btn btn-primary mr-1" type={"submit"} value={"Submit"}>Update account</button>
-                            <LinkButton className="btn btn-secondary ml-1" to={`/customer/${this.props.match.params.id}`}>Back</LinkButton>
+                            <LinkButton className="btn btn-secondary ml-1" to={`/customer/${this.state.customerId}`}>Back</LinkButton>
                         </div>
                     </form>
                 </div>

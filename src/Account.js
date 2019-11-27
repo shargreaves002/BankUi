@@ -1,6 +1,7 @@
 import React from 'react';
 import { Card } from "shards-react";
 import Api from "./utils/Api";
+import LinkButton from "./utils/LinkButton";
 export default class Account extends React.Component {
     constructor(props) {
       super(props);
@@ -33,7 +34,7 @@ export default class Account extends React.Component {
         componentDidMount() {
         //Gives details for the account
         Api.get("/accounts/" + this.props.match.params.id).then( res => {
-            this.setState({account: res.data.data[0], customerLoaded: true});
+            this.setState({account: res.data.data[0], accountLoaded: true});
         }).catch( err => {
             console.log(err);
         });
@@ -57,149 +58,230 @@ export default class Account extends React.Component {
          });
     }
 
-    render() {
-        return (
-        <div>
-            <div>
-                <Card className= "mt-4 mx-auto text-center">
-                    <h5 className="card-header">Account</h5>
-                    <div className="card-body">
-                        <table className= "table table-hover">
-                            <tr>
-                                <th>Firstname</th>
-                                <th>Lastname</th>
-                                <th>Balance</th>
-                                <th>Rewards</th>
-                                <th>Nickname</th>
-                            </tr>
-                            <tr>
-                                <td>Jill</td>
-                                <td>Smith</td>
-                                <td>$50</td>
-                                <td> **/**/**** </td>
-                                <td> COMPLETE </td>
-                            </tr>
-                            <tr>
-                                <td>Eve</td>
-                                <td>Jackson</td>
-                                <td>$94</td>
-                                <td> **/**/**** </td>
-                                <td> COMPLETE </td>
-                            </tr>
-                            <tr>
-                                <td>John</td>
-                                <td>Doe</td>
-                                <td>$80</td>
-                                <td> **/**/**** </td>
-                                <td> COMPLETE</td>
-                            </tr>
-                        </table>
-                    </div>
-                </Card>
-            </div>
-            <div>
-                 <Card className= "mt-4 mx-auto text-center">
-                     <h5 className="card-header"> Deposits</h5>
-                     <div className="card-body">
-                         <table className= "table table-hover">
-                             <tr>
-                                   <th>Type of Deposits </th>
-                                   <th>Transaction Date</th>
-                                   <th>Transaction Status</th>
-                                   <th>Amount</th>
-                                   <th> Medium </th>
-                                   <th> Description </th>
-                             </tr>
-                             {this.state.deposits.map((deposit) => {
-                                 return (
-                                     <tr key={deposit.id}>
-                                         <td key={`${deposit.id}-${deposit.type}`}>
-                                             <a href={`/account/${deposit.id}/edit`}>
-                                           {deposit.type}
-                                             </a>
-                                         </td>
-                                         <td key={`${deposit.id}-${deposit.transaction_date}`}>{deposit.transaction_date}</td>
-                                         <td key={`${deposit.id}-${deposit.status}`}>{deposit.status}</td>
-                                         <td key={`${deposit.id}-${deposit.amount}`}>{deposit.amount}</td>
-                                         <td key={`${deposit.id}-${deposit.medium}`}>{deposit.medium}</td>
-                                         <td key={`${deposit.id}-${deposit.description}`}>{deposit.description}</td>
-                                     </tr>
-                                 );
-                             })}
-                         </table>
-                     </div>
-                 </Card>
-            </div>
-            <div>
-                <Card className= "mt-4 mx-auto text-center">
-                    <h5 className="card-header">Withdraw</h5>
-                    <div className="card-body">
-                        <table className= "table table-hover">
-                            <tr>
-                                <th>Type of Withdraw</th>
-                                <th>Transaction Date</th>
-                                <th>Transaction Status</th>
-                                <th> Amount </th>
-                                <th> Medium </th>
-                                <th> Description</th>
-                            </tr>
-                           {this.state.withdraws.map((withdraw) => {
-                                   return (
-                             <tr key={withdraw.id}>
-                                <td key={`${withdraw.id}${withdraw.type}`}>
+    deleteDeposit(depositId, event) {
+        Api.delete(`/deposits/${depositId}`).then(() => {
+            window.location.reload();
+        }).catch(err => {
+            console.log(err);
+        });
+        event.preventDefault();
+    }
 
-                                   <a href={`/withdraw/${withdraw.id}/edit`}>
-                                        {withdraw.type}
-                                       </a>
-                                    </td>
-                                   <td key={`${withdraw.id}-${withdraw.transaction_date}`}>{withdraw.transaction_date}</td>
-                                   <td key={`${withdraw.id}-${withdraw.status}`}>{withdraw.status}</td>
-                                   <td key={`${withdraw.id}-${withdraw.amount}`}>{withdraw.amount}</td>
-                                   <td key={`${withdraw.id}-${withdraw.medium}`}>{withdraw.medium}</td>
-                                   <td key={`${withdraw.id}-${withdraw.description}`}>{withdraw.description}</td>
-                                   </tr>
-                                      );
-                                   })}
-                        </table>
+    deleteWithdraw(withdrawId, event) {
+        Api.delete(`/withdraws/${withdrawId}`).then(() => {
+            window.location.reload();
+        }).catch(err => {
+            console.log(err);
+        });
+        event.preventDefault();
+    }
+
+    deleteBill(billId, event) {
+        Api.delete(`/bills/${billId}`).then(() => {
+            window.location.reload();
+        }).catch(err => {
+            console.log(err);
+        });
+        event.preventDefault();
+    }
+
+    render() {
+        if (!this.state.accountLoaded || !this.state.depositsLoaded || !this.state.withdrawsLoaded || !this.state.billsLoaded) {
+            return <div>Loading...</div>;
+        } else {
+            return (
+                <div>
+                    <div>
+                        <Card className="mt-4 mx-auto text-center">
+                            <h5 className="card-header">Account</h5>
+                            <div className="card-body">
+                                <table className="table table-hover">
+                                    <thead>
+                                    <tr>
+                                        <th>Firstname</th>
+                                        <th>Lastname</th>
+                                        <th>Balance</th>
+                                        <th>Rewards</th>
+                                        <th>Nickname</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td>Jill</td>
+                                        <td>Smith</td>
+                                        <td>$50</td>
+                                        <td> **/**/****</td>
+                                        <td> COMPLETE</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Eve</td>
+                                        <td>Jackson</td>
+                                        <td>$94</td>
+                                        <td> **/**/****</td>
+                                        <td> COMPLETE</td>
+                                    </tr>
+                                    <tr>
+                                        <td>John</td>
+                                        <td>Doe</td>
+                                        <td>$80</td>
+                                        <td> **/**/****</td>
+                                        <td> COMPLETE</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div className={"card-footer"}>
+                                <LinkButton className="btn btn-secondary"
+                                            to={`/account/${this.state.account.id}/edit`}>
+                                    Edit account details
+                                </LinkButton>
+                            </div>
+                        </Card>
                     </div>
-                </Card>
-            </div>
-        <div>
-          <Card className= "mt-4 mx-auto text-center">
+                    <div>
+                        <Card className="mt-4 mx-auto text-center">
+                            <h5 className="card-header"> Deposits</h5>
+                            <div className="card-body">
+                                <table className="table table-hover">
+                                    <thead>
+                                    <tr>
+                                        <th>Type of Deposits</th>
+                                        <th>Transaction Date</th>
+                                        <th>Transaction Status</th>
+                                        <th>Amount</th>
+                                        <th>Medium</th>
+                                        <th>Description</th>
+                                        <th>Tools</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {this.state.deposits.map((deposit) => {
+                                        return (
+                                            <tr key={deposit.id}>
+                                                <td key={`${deposit.id}-${deposit.type}`}>{deposit.type}</td>
+                                                <td key={`${deposit.id}-${deposit.transaction_date}`}>{deposit.transaction_date}</td>
+                                                <td key={`${deposit.id}-${deposit.status}`}>{deposit.status}</td>
+                                                <td key={`${deposit.id}-${deposit.amount}`}>{deposit.amount}</td>
+                                                <td key={`${deposit.id}-${deposit.medium}`}>{deposit.medium}</td>
+                                                <td key={`${deposit.id}-${deposit.description}`}>{deposit.description}</td>
+                                                <td key={`${deposit.id}-edit`}>
+                                                    <a href={`/deposit/${deposit.id}/edit`}>
+                                                        Edit
+                                                    </a>
+                                                    <button onClick={(e) => this.deleteDeposit(deposit.id, e)}>Delete
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        );
+                                    })}
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div className={"card-footer"}>
+                                <LinkButton className="btn btn-secondary"
+                                            to={`/account/${this.state.account.id}/create-deposit`}>
+                                    Make a deposit
+                                </LinkButton>
+                            </div>
+                        </Card>
+                    </div>
+                    <div>
+                        <Card className="mt-4 mx-auto text-center">
+                            <h5 className="card-header">Withdraw</h5>
+                            <div className="card-body">
+                                <table className="table table-hover">
+                                    <thead>
+                                    <tr>
+                                        <th>Type of Withdraw</th>
+                                        <th>Transaction Date</th>
+                                        <th>Transaction Status</th>
+                                        <th>Amount</th>
+                                        <th>Medium</th>
+                                        <th>Description</th>
+                                        <th>Tools</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {this.state.withdraws.map((withdraw) => {
+                                        return (
+                                            <tr key={withdraw.id}>
+                                                <td key={`${withdraw.id}-${withdraw.type}`}>{withdraw.type}</td>
+                                                <td key={`${withdraw.id}-${withdraw.transaction_date}`}>{withdraw.transaction_date}</td>
+                                                <td key={`${withdraw.id}-${withdraw.status}`}>{withdraw.status}</td>
+                                                <td key={`${withdraw.id}-${withdraw.amount}`}>{withdraw.amount}</td>
+                                                <td key={`${withdraw.id}-${withdraw.medium}`}>{withdraw.medium}</td>
+                                                <td key={`${withdraw.id}-${withdraw.description}`}>{withdraw.description}</td>
+                                                <td key={`${withdraw.id}-edit`}>
+                                                    <a href={`/withdraw/${withdraw.id}/edit`}>
+                                                        Edit
+                                                    </a>
+                                                    <button
+                                                        onClick={(e) => this.deleteWithdraw(withdraw.id, e)}>Delete
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        );
+                                    })}
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div className={"card-footer"}>
+                                <LinkButton className="btn btn-secondary"
+                                            to={`/account/${this.state.account.id}/create-withdraw`}>
+                                    Make a withdrawal
+                                </LinkButton>
+                            </div>
+                        </Card>
+                    </div>
+                    <div>
+                        <Card className="mt-4 mx-auto text-center">
                             <h5 className="card-header">Bill</h5>
                             <div className="card-body">
-                                <table className= "table table-hover">
+                                <table className="table table-hover">
+                                    <thead>
                                     <tr>
                                         <th>Bill Type</th>
                                         <th>Payment Date</th>
                                         <th>Bill Status</th>
-                                        <th> Payment Amount </th>
-                                        <th> Description </th>
-                                        <th> Upcoming Bill Date </th>
+                                        <th>Payment Amount</th>
+                                        <th>Description</th>
+                                        <th>Upcoming Bill Date</th>
+                                        <th>Tools</th>
                                     </tr>
-                                    {this.state.bills.map((bills) => {
+                                    </thead>
+                                    <tbody>
+                                    {this.state.bills.map((bill) => {
                                         return (
-                                  <tr key={bills.id}>
-                              <td key={`${bills.id}-${bills.type}`}>
-                              <a href={`/bills/${bills.id}`}>
-                                       {bills.type}
-                                         </a>
-                                      </td>
-                                      <td key={`${bills.id}-${bills.payment_date}`}>{ bills.payment_date}</td>
-                                      <td key={`${bills.id}-${bills.status}`}>{bills.status}</td>
-                                      <td key={`${bills.id}-${bills.amount}`}>{bills.amount}</td>
-                                      <td key={`${bills.id}-${bills.description}`}>{bills.description}</td>
-                                      <td key={`${bills.id}-${bills.upcoming_bill_date}`}>{bills.upcoming_bill_date}</td>
-                                      </tr>
-                                       );
-                                        })}
+                                            <tr key={bill.id}>
+                                                <td key={`${bill.id}-${bill.type}`}>{bill.type}</td>
+                                                <td key={`${bill.id}-${bill.payment_date}`}>{bill.payment_date}</td>
+                                                <td key={`${bill.id}-${bill.status}`}>{bill.status}</td>
+                                                <td key={`${bill.id}-${bill.amount}`}>{bill.amount}</td>
+                                                <td key={`${bill.id}-${bill.description}`}>{bill.description}</td>
+                                                <td key={`${bill.id}-${bill.upcoming_bill_date}`}>{bill.upcoming_bill_date}</td>
+                                                <td key={`${bill.id}-edit`}>
+                                                    <a href={`/bill/${bill.id}/edit`}>
+                                                        Edit
+                                                    </a>
+                                                    <button onClick={(e) => this.deleteBill(bill.id, e)}>Delete</button>
+                                                </td>
+                                            </tr>
+                                        );
+                                    })}
+                                    </tbody>
                                 </table>
                             </div>
+                            <div className={"card-footer"}>
+                                <LinkButton className="btn btn-secondary"
+                                            to={`/account/${this.state.account.id}/create-bill`}>
+                                    Make a bill
+                                </LinkButton>
+                            </div>
                         </Card>
-                        </div>
-                        </div>
-
-        );
+                    </div>
+                </div>
+            );
+        }
     }
 }
 

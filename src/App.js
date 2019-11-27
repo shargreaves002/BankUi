@@ -30,11 +30,11 @@ export default function App() {
             <Route exact path="/account/:id/create-deposit" component={DepositCreate} />
             <Route exact path="/account/:id/update-bill" component={BillUpdate} />
             <Route exact path="/account/:id/create-bill" component={Bill} />
-            <Route exact path="/customer/:id/update-account" component={AccountUpdate} />
+            <Route exact path="/account/:id/edit" component={AccountUpdate} />
+            <Route exact path="/account/:id" component={Account} />
             <Route exact path="/customer/:id/create-account" component={AccountCreate} />
             <Route exact path="/customer/:id/edit" component={CustomerUpdate} />
             <Route exact path="/customer/:id" component={Customer} />
-            <Route exact path="/account/:id" component={Account} />
             <Route exact path="/accounts" component={Customer} />
             <Route exact path="/signup" component={SignUp} />
             <Route path="/" component={SignIn} />

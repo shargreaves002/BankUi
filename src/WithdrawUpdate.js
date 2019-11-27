@@ -6,14 +6,12 @@ import LinkButton from "./utils/LinkButton";
 export default class WithdrawUpdate extends React.Component {
     constructor (props){
         super(props);
-        this.state ={
-            type: '',
-            status: '',
-            medium: '',
-            amount: '',
-            description: '',
-            accountId: ''
-        };
+        this.state = {type: ''};
+        this.state = {status: ''};
+        this.state = {medium: ''};
+        this.state = {amount: ''};
+        this.state = {description: ''};
+        this.state = {accountId: ''};
 
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);

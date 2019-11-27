@@ -21,10 +21,6 @@ export default class Account extends React.Component {
     }
 
     handleSubmit(event) {
-        if (this.state.type === null || this.state.type === undefined || this.state.type === '') {
-            this.setState({type: "Checking"});
-        }
-
         const account = {
             type: this.state.type,
             nickname: this.state.nickname,
