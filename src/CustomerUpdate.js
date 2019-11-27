@@ -57,8 +57,8 @@ export default class SignUp extends React.Component {
         }
 
         // Check to see if that email is registered yet
-        Api.put("/customers/" + this.props.match.params.id, customer).then((res) => {
-            this.setState({message: "Your Customer Info Was Updated Successfully!!"})
+        Api.put("/customers/" + this.props.match.params.id, customer).then(() => {
+            this.setState({message: "Your Customer Info Was Updated Successfully!!"});
             history.push("/customer/" + this.props.match.params.id);
             window.location.reload();
         }).catch((err) => {

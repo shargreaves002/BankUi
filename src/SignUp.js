@@ -114,7 +114,7 @@ export default class SignUp extends React.Component {
                         </div>
                         <div className="text-center">
                             <button className="btn btn-primary mr-1" type="submit">Register</button>
-                            <LinkButton className="btn btn-secondary ml-1" to={'/signin'}>Sign In</LinkButton>
+                            <LinkButton className="btn btn-secondary ml-1" to={'/signin'}>Cancel</LinkButton>
                         </div>
                     </form>
                 </div>

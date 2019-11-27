@@ -10,6 +10,7 @@ import BillUpdate from "./BillUpdate";
 import './App.css';
 import "bootstrap/dist/css/bootstrap.min.css";
 import "shards-ui/dist/css/shards.min.css";
+import AccountCreate from "./AccountCreate";
 
 export default function App() {
   return (
@@ -18,15 +19,16 @@ export default function App() {
           {/* A <Switch> looks through its children <Route>s and
             renders the first one that matches the current URL. */}
           <Switch>
-          <Route exact path="/customer/:id/edit" component={CustomerUpdate} />
-          <Route exact path="/account/:id/update-bill" component={BillUpdate} />
+            <Route exact path="/customer/:id/create-account" component={AccountCreate} />
+            <Route exact path="/customer/:id/edit" component={CustomerUpdate} />
+            <Route exact path="/account/:id/update-bill" component={BillUpdate} />
             <Route exact path="/account/:id/create-bill" component={Bill} />
             <Route exact path="/customer/:id" component={Customer} />
             <Route exact path="/signup">
               <SignUp />
             </Route>
-            <Route path="/account/:id" component={Account} />
-            <Route path="/accounts">
+            <Route exact path="/account/:id" component={Account} />
+            <Route exact path="/accounts">
               <Customer />
             </Route>
             <Route path="/">
