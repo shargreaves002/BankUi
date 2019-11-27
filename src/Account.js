@@ -17,8 +17,8 @@ export default class Account extends React.Component {
             status:'',
             medium:'',
             description:'',
-            accountId:''
-
+            accountId:'',
+            transaction_date:''
          }],
          withdraws: [{
          }],
@@ -69,8 +69,8 @@ export default class Account extends React.Component {
                                 <th>Firstname</th>
                                 <th>Lastname</th>
                                 <th>Balance</th>
-                                <th> Rewards </th>
-                                <th> Nickname </th>
+                                <th>Rewards</th>
+                                <th>Nickname</th>
                             </tr>
                             <tr>
                                 <td>Jill</td>
@@ -110,30 +110,22 @@ export default class Account extends React.Component {
                                    <th> Medium </th>
                                    <th> Description </th>
                              </tr>
-                             <tr>
-                                   <td>N/A</td>
-                                   <td>**/**/****</td>
-                                   <td>COMPLETE</td>
-                                   <td> $*,***</td>
-                                   <td> Balance </td>
-                                   <td> COMPLETE </td>
-                             </tr>
-                             <tr>
-                                   <td>N/A</td>
-                                   <td>**/**/****</td>
-                                   <td>COMPLETE</td>
-                                   <td> $*,*** </td>
-                                   <td> Balance </td>
-                                   <td> COMPLETE </td>
-                             </tr>
-                             <tr>
-                                   <td>N/A</td>
-                                   <td>**/**/****</td>
-                                   <td>COMPLETE</td>
-                                   <td> $*,*** </td>
-                                   <td> Balance </td>
-                                   <td> COMPLETE</td>
-                             </tr>
+                             {this.state.deposits.map((deposit) => {
+                                 return (
+                                     <tr key={deposit.id}>
+                                         <td key={`${deposit.id}-${deposit.type}`}>
+                                             <a href={`/account/${deposit.id}/edit`}>
+                                           {deposit.type}
+                                             </a>
+                                         </td>
+                                         <td key={`${deposit.id}-${deposit.transaction_date}`}>{deposit.transaction_date}</td>
+                                         <td key={`${deposit.id}-${deposit.status}`}>{deposit.status}</td>
+                                         <td key={`${deposit.id}-${deposit.amount}`}>{deposit.amount}</td>
+                                         <td key={`${deposit.id}-${deposit.medium}`}>{deposit.medium}</td>
+                                         <td key={`${deposit.id}-${deposit.description}`}>{deposit.description}</td>
+                                     </tr>
+                                 );
+                             })}
                          </table>
                      </div>
                  </Card>
@@ -151,30 +143,23 @@ export default class Account extends React.Component {
                                 <th> Medium </th>
                                 <th> Description</th>
                             </tr>
-                            <tr>
-                                <td>N/A</td>
-                                <td>Smith</td>
-                                <td>ACTIVE</td>
-                                <td> $*,*** </td>
-                                <td> Rewards </td>
-                                <td> COMPLETE </td>
-                            </tr>
-                            <tr>
-                                <td>N/A</td>
-                                <td>Jackson</td>
-                                <td>ACTIVE</td>
-                                <td>$*,*** </td>
-                                <td> Rewards </td>
-                                <td> COMPLETE </td>
-                            </tr>
-                            <tr>
-                                <td>N/A</td>
-                                <td>Doe</td>
-                                <td>ACTIVE</td>
-                                <td> $*,*** </td>
-                                <td> Rewards </td>
-                                <td> COMPLETE</td>
-                            </tr>
+                           {this.state.withdraws.map((withdraw) => {
+                                   return (
+                             <tr key={withdraw.id}>
+                                <td key={`${withdraw.id}${withdraw.type}`}>
+
+                                   <a href={`/withdraw/${withdraw.id}/edit`}>
+                                        {withdraw.type}
+                                       </a>
+                                    </td>
+                                   <td key={`${withdraw.id}-${withdraw.transaction_date}`}>{withdraw.transaction_date}</td>
+                                   <td key={`${withdraw.id}-${withdraw.status}`}>{withdraw.status}</td>
+                                   <td key={`${withdraw.id}-${withdraw.amount}`}>{withdraw.amount}</td>
+                                   <td key={`${withdraw.id}-${withdraw.medium}`}>{withdraw.medium}</td>
+                                   <td key={`${withdraw.id}-${withdraw.description}`}>{withdraw.description}</td>
+                                   </tr>
+                                      );
+                                   })}
                         </table>
                     </div>
                 </Card>
@@ -192,30 +177,22 @@ export default class Account extends React.Component {
                                         <th> Description </th>
                                         <th> Upcoming Bill Date </th>
                                     </tr>
-                                    <tr>
-                                        <td> N/A </td>
-                                        <td>**/**/****</td>
-                                        <td>ACTIVE</td>
-                                        <td> $*,*** </td>
-                                        <td> Rewards </td>
-                                        <td>**/**/**** </td>
-                                    </tr>
-                                    <tr>
-                                        <td>N/A</td>
-                                        <td>**/**/****</td>
-                                        <td>ACTIVE</td>
-                                        <td>$*,*** </td>
-                                        <td> Rewards </td>
-                                        <td> **/**/**** </td>
-                                    </tr>
-                                    <tr>
-                                        <td>N/A</td>
-                                        <td>**/**/****</td>
-                                        <td>ACTIVE</td>
-                                        <td> $*,*** </td>
-                                        <td> Rewards </td>
-                                        <td>**/**/****</td>
-                                    </tr>
+                                    {this.state.bills.map((bills) => {
+                                        return (
+                                  <tr key={bills.id}>
+                              <td key={`${bills.id}-${bills.type}`}>
+                              <a href={`/bills/${bills.id}`}>
+                                       {bills.type}
+                                         </a>
+                                      </td>
+                                      <td key={`${bills.id}-${bills.payment_date}`}>{ bills.payment_date}</td>
+                                      <td key={`${bills.id}-${bills.status}`}>{bills.status}</td>
+                                      <td key={`${bills.id}-${bills.amount}`}>{bills.amount}</td>
+                                      <td key={`${bills.id}-${bills.description}`}>{bills.description}</td>
+                                      <td key={`${bills.id}-${bills.upcoming_bill_date}`}>{bills.upcoming_bill_date}</td>
+                                      </tr>
+                                       );
+                                        })}
                                 </table>
                             </div>
                         </Card>
