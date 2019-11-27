@@ -13,6 +13,8 @@ import "shards-ui/dist/css/shards.min.css";
 import AccountCreate from "./AccountCreate";
 import DepositCreate from "./DepositCreate";
 import WithdrawCreate from "./WithdrawCreate";
+import DepositUpdate from "./DepositUpdate";
+import WithdrawUpdate from "./WithdrawUpdate";
 
 export default function App() {
   return (
@@ -21,6 +23,8 @@ export default function App() {
           {/* A <Switch> looks through its children <Route>s and
             renders the first one that matches the current URL. */}
           <Switch>
+            <Route exact path="/deposit/:id/edit" component={DepositUpdate} />
+            <Route exact path="/withdraw/:id/edit" component={WithdrawUpdate} />
             <Route exact path="/account/:id/create-withdraw" component={WithdrawCreate} />
             <Route exact path="/account/:id/create-deposit" component={DepositCreate} />
             <Route exact path="/account/:id/update-bill" component={BillUpdate} />
