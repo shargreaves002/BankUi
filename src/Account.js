@@ -131,9 +131,13 @@ export default class Account extends React.Component {
                                 </table>
                             </div>
                             <div className={"card-footer"}>
-                                <LinkButton className="btn btn-secondary"
+                                <LinkButton className="btn btn-secondary mr-1"
                                             to={`/account/${this.state.account.id}/edit`}>
                                     Edit account details
+                                </LinkButton>
+                                <LinkButton className="btn btn-secondary ml-1"
+                                            to={`/customer/${this.state.account.customerId}`}>
+                                    Back to accounts
                                 </LinkButton>
                             </div>
                         </Card>
@@ -165,10 +169,10 @@ export default class Account extends React.Component {
                                                 <td key={`${deposit.id}-${deposit.medium}`}>{deposit.medium}</td>
                                                 <td key={`${deposit.id}-${deposit.description}`}>{deposit.description}</td>
                                                 <td key={`${deposit.id}-edit`}>
-                                                    <a href={`/deposit/${deposit.id}/edit`}>
+                                                    <LinkButton className={"btn btn-secondary mr-1"} to={`/deposit/${deposit.id}/edit`}>
                                                         Edit
-                                                    </a>
-                                                    <button onClick={(e) => this.deleteDeposit(deposit.id, e)}>Delete
+                                                    </LinkButton>
+                                                    <button className={"btn btn-secondary"} onClick={(e) => this.deleteDeposit(deposit.id, e)}>Delete
                                                     </button>
                                                 </td>
                                             </tr>
@@ -212,11 +216,13 @@ export default class Account extends React.Component {
                                                 <td key={`${withdraw.id}-${withdraw.medium}`}>{withdraw.medium}</td>
                                                 <td key={`${withdraw.id}-${withdraw.description}`}>{withdraw.description}</td>
                                                 <td key={`${withdraw.id}-edit`}>
-                                                    <a href={`/withdraw/${withdraw.id}/edit`}>
+                                                    <LinkButton className={"btn btn-secondary mr-1"} to={`/withdraw/${withdraw.id}/edit`}>
                                                         Edit
-                                                    </a>
+                                                    </LinkButton>
                                                     <button
-                                                        onClick={(e) => this.deleteWithdraw(withdraw.id, e)}>Delete
+                                                        onClick={(e) => this.deleteWithdraw(withdraw.id, e)}
+                                                        className={"btn btn-secondary"}>
+                                                        Delete
                                                     </button>
                                                 </td>
                                             </tr>
@@ -260,10 +266,10 @@ export default class Account extends React.Component {
                                                 <td key={`${bill.id}-${bill.description}`}>{bill.description}</td>
                                                 <td key={`${bill.id}-${bill.upcoming_bill_date}`}>{bill.upcoming_bill_date}</td>
                                                 <td key={`${bill.id}-edit`}>
-                                                    <a href={`/bill/${bill.id}/edit`}>
+                                                    <LinkButton className={"btn btn-secondary mr-1"} to={`/bill/${bill.id}/edit`}>
                                                         Edit
-                                                    </a>
-                                                    <button onClick={(e) => this.deleteBill(bill.id, e)}>Delete</button>
+                                                    </LinkButton>
+                                                    <button className={"btn btn-secondary"} onClick={(e) => this.deleteBill(bill.id, e)}>Delete</button>
                                                 </td>
                                             </tr>
                                         );

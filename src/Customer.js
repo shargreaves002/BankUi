@@ -131,7 +131,7 @@ export default class Customer extends React.Component {
                                             <td key={`${account.id}-rewards-${account.rewards}`}>{account.rewards}</td>
                                             <td key={`${account.id}-balance-${account.balance}`}>{account.balance}</td>
                                             <td key={`${account.id}-edit`}>
-                                                <button onClick={(e) => this.deleteAccount(account.id, e)}>Delete
+                                                <button className={"btn btn-secondary"} onClick={(e) => this.deleteAccount(account.id, e)}>Delete
                                                 </button>
                                             </td>
                                         </tr>
