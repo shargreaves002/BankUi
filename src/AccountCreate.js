@@ -24,7 +24,6 @@ export default class Account extends React.Component {
         if (this.state.type === null || this.state.type === undefined || this.state.type === '') {
             this.setState({type: "Checking"});
         }
-        alert(this.state.type);
 
         const account = {
             type: this.state.type,
@@ -44,7 +43,7 @@ export default class Account extends React.Component {
     render () {
         return (
             <Card className="mt-4 mx-auto text-center" style={{maxWidth:"500px"}}>
-                <h5 className="card-header">Thank you for choosing our bank! Please log in.</h5>
+                <h5 className="card-header">Please make an account!</h5>
                 <div className="card-body">
                     <form onSubmit={this.handleSubmit}>
                         <div className="form-group form-row">
