@@ -24,6 +24,14 @@ export default class Account extends React.Component {
          withdraws: [{
          }],
          bills: [{
+             creation_date: '',
+             paymentDate: '',
+             recurringDate: '',
+             upcomingPaymentDate: '',
+             paymentAmount: '',
+             AccountId: '',
+             status: '',
+             nickname: ''
          }],
          accountLoaded: false,
          depositsLoaded: false,
@@ -98,34 +106,18 @@ export default class Account extends React.Component {
                                 <table className="table table-hover">
                                     <thead>
                                     <tr>
-                                        <th>Firstname</th>
-                                        <th>Lastname</th>
-                                        <th>Balance</th>
-                                        <th>Rewards</th>
                                         <th>Nickname</th>
+                                        <th>Type</th>
+                                        <th>Rewards</th>
+                                        <th>Balance</th>
                                     </tr>
                                     </thead>
                                     <tbody>
                                     <tr>
-                                        <td>Jill</td>
-                                        <td>Smith</td>
-                                        <td>$50</td>
-                                        <td> **/**/****</td>
-                                        <td> COMPLETE</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Eve</td>
-                                        <td>Jackson</td>
-                                        <td>$94</td>
-                                        <td> **/**/****</td>
-                                        <td> COMPLETE</td>
-                                    </tr>
-                                    <tr>
-                                        <td>John</td>
-                                        <td>Doe</td>
-                                        <td>$80</td>
-                                        <td> **/**/****</td>
-                                        <td> COMPLETE</td>
+                                        <td>{this.state.account.nickname}</td>
+                                        <td>{this.state.account.type}</td>
+                                        <td>{this.state.account.rewards}</td>
+                                        <td>{this.state.account.balance}</td>
                                     </tr>
                                     </tbody>
                                 </table>
@@ -246,12 +238,13 @@ export default class Account extends React.Component {
                                 <table className="table table-hover">
                                     <thead>
                                     <tr>
-                                        <th>Bill Type</th>
+                                        <th>Nickname</th>
+                                        <th>Creation Date</th>
                                         <th>Payment Date</th>
-                                        <th>Bill Status</th>
+                                        <th>Recurring Date</th>
+                                        <th>Upcoming Payment Date</th>
                                         <th>Payment Amount</th>
-                                        <th>Description</th>
-                                        <th>Upcoming Bill Date</th>
+                                        <th>Status</th>
                                         <th>Tools</th>
                                     </tr>
                                     </thead>
@@ -259,12 +252,13 @@ export default class Account extends React.Component {
                                     {this.state.bills.map((bill) => {
                                         return (
                                             <tr key={bill.id}>
-                                                <td key={`${bill.id}-${bill.type}`}>{bill.type}</td>
-                                                <td key={`${bill.id}-${bill.payment_date}`}>{bill.payment_date}</td>
+                                                <td key={`${bill.id}-${bill.nickname}`}>{bill.nickname}</td>
+                                                <td key={`${bill.id}-${bill.creation_date}`}>{bill.creation_date}</td>
+                                                <td key={`${bill.id}-${bill.paymentDate}`}>{bill.paymentDate}</td>
+                                                <td key={`${bill.id}-${bill.recurringDate}`}>{bill.recurringDate}</td>
+                                                <td key={`${bill.id}-${bill.upcomingPaymentDate}`}>{bill.upcomingPaymentDate}</td>
+                                                <td key={`${bill.id}-${bill.paymentAmount}`}>{bill.paymentAmount}</td>
                                                 <td key={`${bill.id}-${bill.status}`}>{bill.status}</td>
-                                                <td key={`${bill.id}-${bill.amount}`}>{bill.amount}</td>
-                                                <td key={`${bill.id}-${bill.description}`}>{bill.description}</td>
-                                                <td key={`${bill.id}-${bill.upcoming_bill_date}`}>{bill.upcoming_bill_date}</td>
                                                 <td key={`${bill.id}-edit`}>
                                                     <LinkButton className={"btn btn-secondary mr-1"} to={`/bill/${bill.id}/edit`}>
                                                         Edit

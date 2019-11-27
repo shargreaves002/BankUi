@@ -32,7 +32,6 @@ export default class Bill extends React.Component {
             recurringDate:this.state.recurringDate,
             upcomingPaymentDate:this.state.upcomingPaymentDate,
             paymentAmount:this.state.paymentAmount,
-            accountId:this.state.accountId,
             status:this.state.status
             };
 
@@ -48,8 +47,7 @@ export default class Bill extends React.Component {
     render() {
        return (
            <Card className="mt-4 mx-auto text-center" style={{maxWidth: "1000px"}}>
-                           <h5 className="card-header text-center">Thank you for creating an account! Please enter your information
-                               below to get started.</h5>
+                           <h5 className="card-header text-center">Please submit bill details below.</h5>
                            <div className="card-body">
                                <form name="form" onSubmit={this.handleSubmit}>
                                    <div className="form-row">
@@ -78,17 +76,18 @@ export default class Bill extends React.Component {
                                    </div>
                                    <div className="form-row">
                                        <div className="form-group col">
-                                           <label>Account Id</label>
-                                           <input type="text" name="accountId" className="form-control" value={this.state.accountId || ''} onChange={this.handleChange}/>
-                                       </div>
-                                       <div className="form-group col">
-                                           <label>Status</label>
-                                           <input type="text" name="status" className="form-control" value={this.state.status || ''} onChange={this.handleChange}/>
+                                           <select name={"status"} className={"form-control"} value={this.state.status || ''} onChange={this.handleChange}>
+                                               <option value={''}>Choose...</option>
+                                               <option value={"Pending"}>Pending</option>
+                                               <option value={"Cancelled"}>Cancelled</option>
+                                               <option value={"Completed"}>Completed</option>
+                                               <option value={"Recurring"}>Recurring</option>
+                                           </select>
                                        </div>
                                     </div>
                                    <div className="text-center">
                                        <button className="btn btn-primary mr-1" type="submit">Submit</button>
-                                       <LinkButton className="btn btn-secondary ml-1" to={"/accounts/"+ this.props.match.params.id}>Cancel</LinkButton>
+                                       <LinkButton className="btn btn-secondary ml-1" to={"/account/"+ this.props.match.params.id}>Cancel</LinkButton>
                                    </div>
                                </form>
                            </div>

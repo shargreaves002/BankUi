@@ -28,7 +28,7 @@ export default function App() {
             <Route exact path="/withdraw/:id/edit" component={WithdrawUpdate} />
             <Route exact path="/account/:id/create-withdraw" component={WithdrawCreate} />
             <Route exact path="/account/:id/create-deposit" component={DepositCreate} />
-            <Route exact path="/account/:id/update-bill" component={BillUpdate} />
+            <Route exact path="/bill/:id/edit" component={BillUpdate} />
             <Route exact path="/account/:id/create-bill" component={Bill} />
             <Route exact path="/account/:id/edit" component={AccountUpdate} />
             <Route exact path="/account/:id" component={Account} />

@@ -13,6 +13,7 @@ export default class BillUpdate extends React.Component {
         this.state = {upcomingPaymentDate: ''};
         this.state = {paymentAmount: ''};
         this.state = {status: ''};
+        this.state = {accountId: ''};
 
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -33,13 +34,21 @@ export default class BillUpdate extends React.Component {
             status:this.state.status
             };
 
-         Api.put("/accounts/" + this.props.match.params.id + "/bills", bills).then(() => {
+         Api.put("/bills/" + this.props.match.params.id, bills).then(() => {
                             this.setState({message: "Bill Updated Successfully"});
                         }).catch(() => {
                             this.setState({message: "It looks like there was an error updating this Bill, please try again later."});
                         });
 
         event.preventDefault();
+    }
+
+    componentDidMount() {
+        Api.get(`/bills/${this.props.match.params.id}`).then( res => {
+            this.setState({accountId: res.data.data[0].accountId});
+        }).catch(err => {
+            console.log(err);
+        });
     }
 
     render() {
@@ -74,15 +83,19 @@ export default class BillUpdate extends React.Component {
                                        </div>
                                    </div>
                                    <div>
-
                                        <div className="form-group col">
-                                           <label>Status</label>
-                                           <input type="text" name="status" className="form-control" value={this.state.status || ''} onChange={this.handleChange}/>
+                                           <select name={"status"} className={"form-control"} value={this.state.status || ''} onChange={this.handleChange}>
+                                               <option value={''}>Choose...</option>
+                                               <option value={"Pending"}>Pending</option>
+                                               <option value={"Cancelled"}>Cancelled</option>
+                                               <option value={"Completed"}>Completed</option>
+                                               <option value={"Recurring"}>Recurring</option>
+                                           </select>
                                        </div>
                                     </div>
                                    <div className="text-center">
                                        <button className="btn btn-primary mr-1" type="submit">Update</button>
-                                       <LinkButton className="btn btn-secondary ml-1" to={"/accounts/"+ this.props.match.params.id}>Cancel</LinkButton>
+                                       <LinkButton className="btn btn-secondary ml-1" to={"/account/"+ this.state.accountId}>Back to Account</LinkButton>
                                    </div>
                                </form>
                            </div>
