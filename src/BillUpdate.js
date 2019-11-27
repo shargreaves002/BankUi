@@ -7,14 +7,13 @@ export default class BillUpdate extends React.Component {
 
     constructor(props){
         super(props);
-        this.state = {
-        nickname:'',
-        paymentDate:'',
-        recurringDate:'',
-        upcomingPaymentDate:'',
-        paymentAmount:'',
-        status:''
-         };
+        this.state = {nickname: ''};
+        this.state = {paymentDate: ''};
+        this.state = {recurringDate: ''};
+        this.state = {upcomingPaymentDate: ''};
+        this.state = {paymentAmount: ''};
+        this.state = {status: ''};
+
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }

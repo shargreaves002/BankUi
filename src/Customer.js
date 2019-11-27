@@ -58,6 +58,15 @@ export default class Customer extends React.Component {
         });
     }
 
+    deleteAccount(accountId, event) {
+        Api.delete(`/accounts/${accountId}`).then(() => {
+            window.location.reload();
+        }).catch(err => {
+            console.log(err);
+        });
+        event.preventDefault();
+    }
+
     render() {
         const { customer, accounts, customerLoaded, accountsLoaded } = this.state;
         if (!customerLoaded || !accountsLoaded) {
@@ -106,6 +115,7 @@ export default class Customer extends React.Component {
                                         <th>Type</th>
                                         <th>Rewards</th>
                                         <th>Balance</th>
+                                        <th>Tools</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -118,8 +128,12 @@ export default class Customer extends React.Component {
                                                 </a>
                                             </td>
                                             <td key={`${account.id}-${account.type}`}>{account.type}</td>
-                                            <td key={`${account.id}-${account.rewards}`}>{account.rewards}</td>
-                                            <td key={`${account.id}-${account.balance}`}>{account.balance}</td>
+                                            <td key={`${account.id}-rewards-${account.rewards}`}>{account.rewards}</td>
+                                            <td key={`${account.id}-balance-${account.balance}`}>{account.balance}</td>
+                                            <td key={`${account.id}-edit`}>
+                                                <button onClick={(e) => this.deleteAccount(account.id, e)}>Delete
+                                                </button>
+                                            </td>
                                         </tr>
                                     );
                                 })}
