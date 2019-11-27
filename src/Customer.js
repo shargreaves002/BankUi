@@ -127,7 +127,7 @@ export default class Customer extends React.Component {
                             </table>
                         </div>
                         <div className={"card-footer"}>
-                            <LinkButton to={`/customer/${this.props.match.params.id}/create-account`} className={"btn btn-secondary"}> Create a new account! </LinkButton>
+                            <LinkButton to={`/customer/${this.props.match.params.id}/create-account`} className={"btn btn-secondary"}>Create a new account</LinkButton>
                         </div>
                     </Card>
                 </div>

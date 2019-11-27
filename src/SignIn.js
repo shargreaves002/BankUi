@@ -25,7 +25,7 @@ export default class SignIn extends React.Component {
         Api.get("/customers/email/" + data.email).then(res => {
             if (res.data.data === undefined) {
                 // They're not in the database yet
-                this.setState({message: 'Looks like your email has not been registered yet, please sign up!'});
+                this.setState({message: 'Looks like your email has not been registered yet, please register!'});
             } else {
                 // They're in the database, so check to see if that password is right and log in
                 if (res.data.data[0].password === data.password) {
@@ -67,7 +67,7 @@ export default class SignIn extends React.Component {
                         </div>
                         <div className=" text-center">
                             <button className=" btn btn-primary mr-1" type={"submit"} value={"Submit"}>Sign In</button>
-                            <LinkButton className="btn btn-secondary ml-1" to={'/signup'}>Create an account</LinkButton>
+                            <LinkButton className="btn btn-secondary ml-1" to={'/signup'}>Register</LinkButton>
                         </div>
                     </form>
                 </div>
