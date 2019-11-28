@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export default axios.create({
-    baseURL: "http://localhost:8080/",
+    baseURL: "https://gentle-ravine-25371.herokuapp.com/",
     responseType: "json",
     headers: {"Access-Control-Allow-Origin": "*"}
 });
