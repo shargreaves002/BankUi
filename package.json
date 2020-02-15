@@ -16,7 +16,7 @@
     "rxjs": "latest",
     "shards-react": "^1.0.3",
     "typescript": "^3.7.2",
-    "yarn": "^1.19.2",
+    "yarn": "^1.22.0",
     "express": "latest"
   },
   "scripts": {
